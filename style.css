@@ -1,0 +1,148 @@
+.container {
+width: 100vw;
+/* height: 100vh; */
+min-height: 100%;
+background: #C2C2C2;
+/* background: #6C7A89; */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+}
+#container_index {
+	background: #851409;
+}
+.box {
+width: 70%;
+/* height: 300px; */
+background: #fff;
+border-radius: 10px;
+padding: 2%;
+margin: 5%;
+}
+body {
+margin: 0px;
+font-family: verdana, sans-serif;
+text-align: center;
+}
+h1{
+	font-size: 30pt;
+	text-align: center;
+}
+h2{
+	font-size: 20pt;
+	text-align: left;
+	display: inline-block;
+}
+p{
+	display: inline-block;
+	font-size: 16pt;
+}
+.button {
+    background-color: #555555;
+    border: none;
+    color: white;
+    padding: 3%;
+		margin: 20px;
+  	cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20pt;
+		border-radius: 12px;
+		border: 2px solid #555555;
+    /* -webkit-transition-duration: 0.4s; /* Safari */ */
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+    background-color: white; /* Green */
+    color: #555555;
+}
+
+.homepage_button{
+	background-color: #851409;
+	border: 2px solid #851409;
+}
+
+.homepage_button:hover {
+    background-color: white; /* Green */
+    color: #851409;
+}
+
+.answer {
+
+	    background-color: #555555;
+	    border: none;
+	    color: white;
+	    padding: 2%;
+			margin: 20px;
+	  	cursor: pointer;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16pt;
+			border-radius: 12px;
+			border: 2px solid #555555;
+	    /* -webkit-transition-duration: 0.4s; /* Safari */ */
+	    transition-duration: 0.4s;
+			outline:none;
+}
+
+.answer:hover {
+    background-color: white;
+    color: #555555;
+}
+/*
+#correct:active{
+	    background-color: white;
+	    color: #555555;
+} */
+
+.correct_clicked{
+	    background-color: white;
+	    color: green;
+			border: 2px solid green;
+}
+
+.correct_clicked:hover{
+	    background-color: white;
+	    color: green;
+			border: 2px solid green;
+}
+
+.wrong_clicked{
+	    background-color: white;
+	    color: red;
+			border: 2px solid red;
+}
+
+.wrong_clicked:hover{
+	    background-color: white;
+	    color: red;
+			border: 2px solid red;
+}
+
+#hidden_p{
+	color: green;
+	display: none;
+}
+
+.explanation{
+	padding-left: 30pt;
+	padding-right: 30pt;
+	padding-bottom: 10pt;
+	display: none;
+}
+
+.explanation p{
+		font-style: italic;
+		font-size: 14pt !important;
+		color: #484848;
+}
+
+pre{
+	padding-left: 40pt;
+	padding-right: 40pt;
+	text-align: left !important;
+}

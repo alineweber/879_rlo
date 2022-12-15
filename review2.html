@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>CS403 - Intro to Robotics</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="utf-8">
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <!-- <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script> -->
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+  </head>
+  <body>
+    <div class="container">
+    <div class="box">
+        <h1>Review (Lectures 11, 12, 13, 15, 16)</h1>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 1.</h2> <p><b><i>[Jacobian]</i></b> Select the three correct expressions of a jacobian ($x \in \mathbb{R}^{m}$; $q \in \mathbb{R}^{n}$)</p> <br>
+        <button class="answer correct correct_one multiple" onclick="check(this)">
+            $\dot{x} = J\dot{q}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $\dot{x} = J^{\top}\dot{q}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $\dot{q} = J^{\top}\dot{x}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $F = J^{\top}\tau$
+        </button>
+        <button class="answer correct correct_one multiple" onclick="check(this)">
+            $\tau = J^{\top}F$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $\tau = JF$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $J \in \mathbb{R}^{n\times m}$
+        </button>
+        <button class="answer correct correct_one multiple" onclick="check(this)">
+            $J \in \mathbb{R}^{m\times n}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $J \in \mathbb{R}^{m\times m}$
+        </button>
+        <p id="hidden_p"><b>All correct options were selected!</b></p>
+        <div class="explanation" id="explanation_one">
+            <p>The Jacobian matrix maps joint velocity ($\dot{q}$) to cartesian velocity (velocity of the end effector; $\dot{x}$): $\dot{x} = J\dot{q}$. We can derive this by differentiating the forward kinematics equation: $x(t) = f(q(t))$. By using the chain rule, the time derivative can be expressed as: $ \dot{x} = \frac{\partial f(q)}{\partial q}\frac{d q(t)}{dt} = \frac{\partial f(q)}{\dot{q}} = J(q)\dot{q}$.</p>
+            <p>Generalized force can be computed using the Jacobian transpose given external force $F$: $\tau = J^{\top}F$. We can use the conservation of energy to derive this relationship. Work is the application of force over a distance: $W=\int F^{\top}v dt$. Note that $W$ is denoted for work, $F$ is force, and $v$ is velocity. Since power is the rate at which work is performed, we can get the following expression ($\tau$ represents the force in joint-space (torque if the system consists of revolute joints) that affects the movement of the end-effector):</p> <br>
+            <p>$P = \frac{W}{t} = \frac{F^{\top}d}{t}=F^{\top}\frac{d}{t}=F^{\top}v$. </p> <br>
+            <p>Therefore, we can express this in terms of Cartesian space (end-effector space) and joint-space:</p> <br>
+            <p>$P=F^{\top}\dot{x}$,</p> <br>
+            <p>$P=\tau^{\top}\dot{q}$.</p> <br>
+            <p>And these are equivalent, meaning that work is performed at the same rate regardless of the system.</p> <br>
+            <p>$\tau^{\top}\dot{q}=F^{\top}\dot{x}$.</p> <br>
+            <p>We can derive the final equation using the velocity mapping equation: $\dot{x} = J\dot{q}$.</p> <br>
+            <p>$\tau^{\top}\dot{q}=F^{\top}J\dot{q}$,</p> <br>
+            <p>$\tau^{\top}=F^{\top}J$,</p> <br>
+            <p>$\tau=J^{\top}F$.</p> <br>
+            <p>Note that $J  \in \mathbb{R}^{m\times n}$ where $n$ comes from the set of joint variables ($q \in \mathbb{R}^{n}$) and $m$ comes from the minimal set of coordinates where the end-effector configuration can be represented ($x \in \mathbb{R}^{m}$).</p>
+        </div>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 2.</h2> <p><b><i>[Newtonian dynamics - rotational motion]</i></b> The left diagram depicts a person (blue circle) rotating a flywheel (yellow circle) which is connected in the center using a rope. The right diagram describes the rotating flywheel.</p> <br>
+        <img src="images_review/r2_q2.png" alt="Image description" style="width:500px;"> <br>
+        <p><b>Question 2.1.</b> What is the correct match of the centripetal and centrifugal forces on the left diagram?</p>  <br>
+        <button class="answer wrong" onclick="check(this)">
+            $F_1 \text{(centripetal force)} = \frac{-2mv^2}{R}$, $F_2 \text{(centrifugal force)} = \frac{mv^2}{R}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $F_1 \text{(centripetal force)} = \frac{-mv^2}{R}$, $F_2 \text{(centrifugal force)} = \frac{mv^2}{R}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $F_1 \text{(centrifugal force)} = \frac{-2mv^2}{R}$, $F_2 \text{(centripetal force)} = \frac{mv^2}{R}$
+        </button>
+        <button class="answer correct correct_two_one" onclick="check(this)">
+            $F_1 \text{(centrifugal force)} = \frac{-mv^2}{R}$, $F_2 \text{(centripetal force)} = \frac{mv^2}{R}$
+        </button>
+        <div class="explanation" id="explanation_two_one">
+            <p>Centripetal force is the component of force acting on an object in curvilinear motion which is directed towards the axis of rotation or center of curvature. Centrifugal force is a pseudo (virtual) force in circular motion which acts along the radius and is directed away from the center of the circle. The magnitude of the two forces are identical.</p>
+        </div>
+        <br>
+        <p><b>Question 2.2.</b> Let’s assume that $50N$ force is applied to the flywheel with radius $r=1m$. Given that the rotational inertia of the flywheel is $0.5kg\,m^2$, what is the angular acceleration ($\alpha$) of the flywheel? Hint: try to get the torque ($\tau$) first and then obtain the angular acceleration by using the equation $\tau = \text{I}\alpha$.</p>  <br>
+        <button class="answer correct correct_two_two" onclick="check(this)">
+            $100 rad/s^2$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $50 rad/s^2$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $10 rad/s^2$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $5 rad/s^2$
+        </button>
+        <div class="explanation" id="explanation_two_two">
+            <p>By inserting values in $\tau =  F r$, we obtain $\tau = 50 Nm$. We can get the angular acceleration by inserting values in $\tau = \text{I}\alpha$. We obtain $\alpha = \frac{\tau}{\text{I}} = \frac{50 Nm}{0.5 kg\,m^2} = 100rad/s^2$. Note that $1N = 1kg\,m/s^2$.</p>
+        </div>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 3.</h2> <p><b><i>[Dynamics simulation]</i></b>  Let’s assume that we are trying to simulate the dynamics of a rotating stick as depicted below. $F$ is the external force applied at the end-effector (tip of the stick) in the vertical direction.</p> <br>
+        <img src="images_review/r2_q3.png" alt="Image description" style="width:400px;"> <br>
+        <p><b>Question 3.1.</b> What is the correct <i>implementation</i> for the dynamics function?</p>  <br>
+        <!-- <pre><code>
+            def dynamics(theta, theta_dot, F, tau, params):
+                # Set values for mass, inertia, center of mass distance, and mu
+                m, I, c, l, mu = params
+                <br>
+                # Compute theta double dot
+                # 1
+                theta_ddot = (F*l*cos(theta) + tau - mu*theta_dot)/(m*c^2 + I)
+                <br>
+                # 2
+                theta_ddot = (F*l*cos(theta) + tau - mu*theta_dot)/(I)
+                <br>
+                # 3
+                theta_ddot = (F*l*sin(theta) + tau - mu*theta_dot)/(m*c^2 + I)
+                <br>
+                # 4
+                theta_ddot = (F*l*sin(theta) + tau - mu*theta_dot)/(I)
+                <br>
+                return theta_ddot
+        </code></pre> -->
+        <img src="images_review/r2_q31.png" alt="Image description" style="width:700px;"> <br>
+        <button class="answer correct correct_three_one" onclick="check(this)">
+            #1
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            #2
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            #3
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            #4
+        </button>
+        <!-- <div class="explanation" id="explanation_three_one">
+            <p>TODO</p>
+        </div> -->
+        <br>
+        <p><b>Question 3.2.</b> Now we want to update the states, $[$<code>theta</code>, <code>theta_dot</code>$]^{\top}$, by integrating the derivatives. What is the correct implementation for the semi-implicit Euler integration?</p>  <br>
+        <!-- <pre><code>
+                # Update theta by semi-implicit Euler integration
+                def semiEuler(theta, theta_dot, theta_ddot, dt=0.001):
+                    # Integration
+                    # 1
+                    new_theta_dot = theta_dot + theta_ddot*dt
+                    new_theta = theta + theta_dot
+                    <br>
+                    # 2
+                    new_theta_dot = theta_dot + theta_ddot*dt
+                    new_theta = theta + new_theta_dot
+                    <br>
+                    # 3
+                    new_theta_dot = theta_dot + theta_ddot*dt
+                    new_theta = theta + theta_dot*dt
+                    <br>
+                    # 4
+                    new_theta_dot = theta_dot + theta_ddot*dt
+                    new_theta = theta + new_theta_dot*dt
+                    <br>
+                    return new_theta
+        </code></pre> -->
+        <img src="images_review/r2_q32.png" alt="Image description" style="width:600px;"> <br>
+        <button class="answer wrong" onclick="check(this)">
+            #1
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            #2
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            #3
+        </button>
+        <button class="answer correct correct_three_two" onclick="check(this)">
+            #4
+        </button>
+        <div class="explanation" id="explanation_three_two">
+            <p>We integrate the derivatives of the current states to update the next state ($[$<code>theta</code>, <code>theta_dot</code>$]^{\top}$). Especially, we used the semi-implicit Euler integration method which can be expressed as below:</p>
+            <br>
+            <p>$\dot{\theta_{i+1}} = \dot{\theta_{i}} + \Delta t \ddot{\theta_{i}}$</p>
+            <br>
+            <p>$\theta_{i+1} = \theta_{i} + \Delta t \dot{\theta_{i+1}}$.</p>
+            <br>
+            <p>The semi-implicit Euler is a first-order integrator that produces an approximate discrete solution by iterating the aforementioned equation. Note that #3 is the standard Euler method.</p>
+        </div>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 4.</h2> <p> <b><i>[Dynamics of openchain]</i></b> Let’s analyze a 2 DoF manipulator which has one revolute joint and one prismatic joint. We refer to this system as RP (revolute-prismatic) manipulator. Here, what is the kinematics of this manipulator? More specifically, how can we express the position ($x$) and velocity ($\dot{x}$) of the center of mass? Also, what is the Jacobian? Let’s try to solve this problem step-by-step.</p> <br>
+        <img src="images_review/r2_q4.png" alt="Image description" style="width:500px;"> <br>
+        <p><b>Question 4.1.</b> Let’s first compute the position of the center of mass in the 2D plane. What is the correct expression?</p>  <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} p \sin\theta \\ p \cos\theta \end{pmatrix} $
+        </button>
+        <br>
+        <button class="answer correct correct_four_one" onclick="check(this)">
+            $ \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} p \cos\theta \\ p \sin\theta \end{pmatrix} $
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} p \sin\theta \\ -p \cos\theta \end{pmatrix} $
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} p \cos\theta \\ -p \sin\theta \end{pmatrix} $
+        </button>
+        <!-- <div class="explanation" id="explanation_four_one">
+            <p>TODO</p>
+        </div> -->
+        <br>
+        <p><b>Question 4.2.</b> Now let’s compute the velocity of the center of mass in the 2D plane using the derivative of the position. What is the correct expression?</p>  <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \begin{pmatrix} \dot{x} \\ \dot{y} \end{pmatrix} = \begin{pmatrix} -p \dot{\theta}\sin\theta \\ p\dot{\theta}\cos\theta \end{pmatrix} $
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \begin{pmatrix} \dot{x} \\ \dot{y} \end{pmatrix} = \begin{pmatrix} p \dot{\theta}\cos\theta \\ -p\dot{\theta}\sin\theta \end{pmatrix} $
+        </button>
+        <br>
+        <button class="answer correct correct_four_two" onclick="check(this)">
+            $ \begin{pmatrix} \dot{x} \\ \dot{y} \end{pmatrix} = \begin{pmatrix} \dot{p}\cos\theta-p \dot{\theta}\sin\theta \\ \dot{p}\sin\theta+p\dot{\theta}\cos\theta \end{pmatrix} $
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \begin{pmatrix} \dot{x} \\ \dot{y} \end{pmatrix} = \begin{pmatrix} \dot{p}\sin\theta+p \dot{\theta}\cos\theta \\ \dot{p}\cos\theta-p\dot{\theta}\sin\theta \end{pmatrix} $
+        </button>
+        <div class="explanation" id="explanation_four_two">
+            <p>Don’t forget to get the derivative of $p$ since it is not a constant.</p>
+        </div>
+        <br>
+        <p><b>Question 4.3.</b> What is the Jacobian?  ($q=\begin{pmatrix} \theta \\ p \end{pmatrix}$)</p> <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \begin{pmatrix} -p\sin\theta &0 \\ p\cos\theta &0 \end{pmatrix} $
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \begin{pmatrix} p\cos\theta &0 \\ -p\sin\theta &0 \end{pmatrix} $
+        </button>
+        <br>
+        <button class="answer correct correct_four_three" onclick="check(this)">
+            $ \begin{pmatrix} -p\sin\theta & \cos\theta \\ p\cos\theta &\sin\theta \end{pmatrix} $
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \begin{pmatrix} p\cos\theta &\sin\theta \\ -p\sin\theta &\cos\theta \end{pmatrix} $
+        </button>
+        <div class="explanation" id="explanation_four_three">
+            <p>As mentioned previously, the Jacobian matrix maps joint velocity ($\begin{pmatrix}\dot{\theta}\\ \dot{p}\end{pmatrix}$) to cartesian velocity ($\begin{pmatrix}\dot{x}\\ \dot{y}\end{pmatrix}$). Here, $J  \in \mathbb{R}^{m\times n}$ where $n$ comes from the set of joint variables ($q \in \mathbb{R}^{n}$) and $m$ comes from the minimal set of coordinates where the end-effector configuration can be represented ($x \in \mathbb{R}^{m}$).</p>
+        </div>
+        <br>
+        <p><b>Question 4.4.</b> What is the correct description to calculate the acceleration of the manipulator arm (second link)?</p>  <br>
+        <button class="answer wrong" onclick="check(this)">
+            $\ddot{x} = J\ddot{q} + \dot{J}\dot{q} = J\ddot{q} + \begin{pmatrix} \dot{p}\cos{\theta}-p\dot{\theta}\sin\theta & \dot{\theta} \cos{\theta}\\ -\dot{p}\sin\theta -p\dot{\theta}\cos\theta & -\dot{\theta}\sin{\theta}\end{pmatrix} \begin{pmatrix} \dot{\theta} \\ \dot{p} \end{pmatrix} \\ = J\ddot{q} + \begin{pmatrix} \dot{p}\dot{\theta}\cos{\theta}-p\dot{\theta}^2\sin\theta &\dot{\theta}\dot{p}\cos\theta \\ -\dot{p}\dot{\theta}\sin\theta-p\dot{\theta}^2\cos\theta &-\dot{\theta}\dot{p}\sin\theta \end{pmatrix} \\ = J\ddot{q} + \begin{pmatrix} -p\sin\theta \\ -p\cos\theta \end{pmatrix} \dot{\theta}^2 + \begin{pmatrix} 2\cos\theta \\ -2\sin\theta \end{pmatrix} \dot{\theta}\dot{p} \\ = J\ddot{q} + \text{Centripetal acceleration} + \text{Coriolis acceleration}.$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $\ddot{x} = J\ddot{q} + \dot{J}\dot{q} = J\ddot{q} + \begin{pmatrix} \dot{p}\cos{\theta}-p\dot{\theta}\sin\theta & \dot{\theta} \cos{\theta}\\ -\dot{p}\sin\theta -p\dot{\theta}\cos\theta & -\dot{\theta}\sin{\theta}\end{pmatrix} \begin{pmatrix} \dot{\theta} \\ \dot{p} \end{pmatrix} \\ = J\ddot{q} + \begin{pmatrix} \dot{p}\dot{\theta}\cos{\theta}-p\dot{\theta}^2\sin\theta &\dot{\theta}\dot{p}\cos\theta \\ -\dot{p}\dot{\theta}\sin\theta-p\dot{\theta}^2\cos\theta &-\dot{\theta}\dot{p}\sin\theta \end{pmatrix} \\ = J\ddot{q} + \begin{pmatrix} -p\sin\theta \\ -p\cos\theta \end{pmatrix} \dot{\theta}^2 + \begin{pmatrix} 2\cos\theta \\ -2\sin\theta \end{pmatrix} \dot{\theta}\dot{p} \\ = J\ddot{q} + \text{Coriolis acceleration} + \text{Centripetal acceleration}. $
+        </button>
+        <br>
+        <button class="answer correct correct_four_four" onclick="check(this)">
+            $ \ddot{x} = J\ddot{q} + \dot{J}\dot{q} = J\ddot{q} + \begin{pmatrix} -\dot{p}\sin\theta -p\dot{\theta}\cos\theta & -\dot{\theta}\sin\theta \\ \dot{p}\cos\theta -p\dot{\theta}\sin\theta & \dot{\theta}\cos\theta\end{pmatrix} \begin{pmatrix} \dot{\theta} \\ \dot{p} \end{pmatrix} \\ = J\ddot{q} + \begin{pmatrix} -\dot{p}\dot{\theta}\sin\theta-p\dot{\theta}^2\cos\theta &-\dot{\theta}\dot{p}\sin\theta \\ \dot{p}\dot{\theta}\cos\theta -p\dot{\theta}^2\sin\theta & \dot{\theta}\dot{p}\cos\theta \end{pmatrix} \\ = J\ddot{q} + \begin{pmatrix} -p\cos\theta \\ -p\sin\theta \end{pmatrix} \dot{\theta}^2 + \begin{pmatrix} -2\sin\theta \\ 2\cos\theta \end{pmatrix} \dot{\theta}\dot{p} \\ = J\ddot{q} + \text{Centripetal acceleration} + \text{Coriolis acceleration}.$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $ \ddot{x} = J\ddot{q} + \dot{J}\dot{q} = J\ddot{q} + \begin{pmatrix} -\dot{p}\sin\theta -p\dot{\theta}\cos\theta & -\dot{\theta}\sin\theta \\ \dot{p}\cos\theta -p\dot{\theta}\sin\theta & \dot{\theta}\cos\theta\end{pmatrix} \begin{pmatrix} \dot{\theta} \\ \dot{p} \end{pmatrix} \\ = J\ddot{q} + \begin{pmatrix} -\dot{p}\dot{\theta}\sin\theta-p\dot{\theta}^2\cos\theta &-\dot{\theta}\dot{p}\sin\theta \\ \dot{p}\dot{\theta}\cos\theta -p\dot{\theta}^2\sin\theta & \dot{\theta}\dot{p}\cos\theta \end{pmatrix} \\ = J\ddot{q} + \begin{pmatrix} -p\cos\theta \\ -p\sin\theta \end{pmatrix} \dot{\theta}^2 + \begin{pmatrix} -2\sin\theta \\ 2\cos\theta \end{pmatrix} \dot{\theta}\dot{p} \\ = J\ddot{q} + \text{Coriolis acceleration} + \text{Centripetal acceleration}. $
+        </button>
+        <!-- <div class="explanation" id="explanation_four_four">
+            <p>TODO</p>
+        </div> -->
+        <hr>
+        <h2>Question 5.</h2> <p> <b><i>[Lagrangian dynamics]</i></b> Now let’s look into robot dynamics which considers forces and torques. We know that the equation of motion can be expressed as: $M(q)\ddot{q} + C(q,\dot{q})+G(q)=Q$. Here, $Q\in \mathbb{R}^{n}$ is the vector of joint forces and torque, $C(q,\dot{q}) \in \mathbb{R}^{n}$ are forces including centripetal, Coriolis, and friction terms that depend on $q$ and $\dot{q}$, while $G(q)$ accounts for gravity. Lastly, $M(q)\ddot{q}\in \mathbb{R}^{n\times n}$ is the mass matrix.</p> <br>
+        <p><b>Question 5.1.</b> What is the feature of this matrix? And what is the correct definition of this matrix?</p>  <br>
+        <button class="answer correct correct_five_one" onclick="check(this)">
+            Symmetric positive-definite matrix, if $x^{\top}Mx > 0$ for all non-zero $x \in \mathbb{R}^{n}$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            Symmetric positive-definite matrix, if $x^{\top}Mx \ge 0$ for all non-zero $x \in \mathbb{R}^{n}$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            Symmetric positive-semidefinite matrix, if $x^{\top}Mx > 0$ for all non-zero $x \in \mathbb{R}^{n}$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            Symmetric positive-semidefinite matrix, if $x^{\top}Mx \ge 0$ for all non-zero $x \in \mathbb{R}^{n}$
+        </button>
+        <!-- <div class="explanation" id="explanation_five_one">
+            <p>TODO</p>
+        </div> -->
+        <br>
+        <p><b>Question 5.2.</b> Given a set of independent coordinates $q \in \mathbb{R}^{n}$ that describes the systems’ configuration and generalized forces $f \in \mathbb{R}^{n}$, how can we express the Lagrangian function and the equations of motion in terms of the Lagrangian? $T(q,\dot{q})$ denotes the overall kinetic energy and $V(q)$ denotes the overall potential energy.</p>  <br>
+        <button class="answer wrong" onclick="check(this)">
+            $\mathcal{L}(q,\dot{q}) = T(q,\dot{q})+V(q)$; $f=\frac{d}{dt}\frac{\partial \mathcal{L}}{\partial \dot{q}}-\frac{\partial \mathcal{L}}{\partial q}$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $\mathcal{L}(q,\dot{q}) = T(q,\dot{q})+V(q)$; $f=\frac{d}{dt}\frac{\partial \mathcal{L}}{\partial \dot{q}}+\frac{\partial \mathcal{L}}{\partial q}$
+        </button>
+        <br>
+        <button class="answer correct correct_five_two" onclick="check(this)">
+            $\mathcal{L}(q,\dot{q}) = T(q,\dot{q})-V(q)$; $f=\frac{d}{dt}\frac{\partial \mathcal{L}}{\partial \dot{q}}-\frac{\partial \mathcal{L}}{\partial q}$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $\mathcal{L}(q,\dot{q}) = T(q,\dot{q})-V(q)$; $f=\frac{d}{dt}\frac{\partial \mathcal{L}}{\partial \dot{q}}+\frac{\partial \mathcal{L}}{\partial q}$
+        </button>
+        <!-- <div class="explanation" id="explanation_five_two">
+            <p>TODO</p>
+        </div> -->
+        <br>
+        <p><b>Question 5.3.</b>  Now let’s implement the equations of motion in terms of the Lagrangian in a 2 DoF manipulator. What is the correct process of computing kinetic energy (T)? Assume that the velocities at the center of mass for the two links are given as vc1 and vc2.</p>  <br>
+        <img src="images_review/r2_q53.png" alt="Image description" style="width:500px;"> <br>
+        <!-- <pre><code>
+            # Given velocities at center of mass: vc1, vc2
+            # Given constants: m1, m2, I1, I2, dtheta1, dtheta2, g
+            <br>
+            # Kinetic energy of link 1 and 2
+            # 1
+            T1 = 0.5*m1*vc1.dot(vc1) + 0.5*I1*dtheta1*dtheta1
+            T2 = 0.5*m2*vc2.dot(vc2) + 0.5*I2*dtheta2*dtheta2
+            <br>
+            # 2
+            T1 = 0.5*m1*vc1.dot(vc1) + 0.5*I1*dtheta1*dtheta1
+            T2 = 0.5*m2*vc2.dot(vc2) + 0.5*I2*(dtheta1 + dtheta2)*(dtheta1 + dtheta2)
+            <br>
+            # 3
+            T1 = 0.5*m1*vc1.dot(vc1) + I1*dtheta1*dtheta1
+            T2 = 0.5*m2*vc2.dot(vc2) + I2*dtheta2*dtheta2
+            <br>
+            # 4
+            T1 = 0.5*m1*vc1.dot(vc1) + I1*dtheta1*dtheta1
+            T2 = 0.5*m2*vc2.dot(vc2) + I2*(dtheta1 + dtheta2)*(dtheta1 + dtheta2)
+        </code></pre> -->
+        <img src="images_review/r2_q53_2.png" alt="Image description" style="width:700px;"> <br>
+        <button class="answer wrong" onclick="check(this)">
+            #1
+        </button>
+        <button class="answer correct correct_five_three" onclick="check(this)">
+            #2
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            #3
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            #4
+        </button>
+        <!-- <div class="explanation" id="explanation_five_three">
+            <p>TODO</p>
+        </div> -->
+        <!-- <br>
+        <p><b>Question 5.4.</b>  What is the correct process of computing potential energy (V)?</p>  <br>
+        <pre><code>
+            # Given velocities at center of mass: vc1, vc2
+            # Given constants: m1, m2, I1, I2, dtheta1, dtheta2, g
+            <br>
+            # Potential energy of link 1 and 2
+            # 1
+            V1 = m1*g*
+            v2 = 0.5*m2*vc2.dot(vc2) + 0.5*I2*dtheta2*dtheta2
+            <br>
+            # 2
+            T1 = 0.5*m1*vc1.dot(vc1) + 0.5*I1*dtheta1*dtheta1
+            T2 = 0.5*m2*vc2.dot(vc2) + 0.5*I2*(dtheta1 + dtheta2)*(dtheta1 + dtheta2)
+            <br>
+            # 3
+            T1 = 0.5*m1*vc1.dot(vc1) + I1*dtheta1*dtheta1
+            T2 = 0.5*m2*vc2.dot(vc2) + I2*dtheta2*dtheta2
+            <br>
+            # 4
+            T1 = 0.5*m1*vc1.dot(vc1) + I1*dtheta1*dtheta1
+            T2 = 0.5*m2*vc2.dot(vc2) + I2*(dtheta1 + dtheta2)*(dtheta1 + dtheta2)
+        </code></pre>
+        <button class="answer wrong" onclick="check(this)">
+            #1
+        </button>
+        <button class="answer correct correct_five_four" onclick="check(this)">
+            #2
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            #3
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            #4
+        </button> -->
+        <!-- <div class="explanation" id="explanation_five_four">
+            <p>TODO</p>
+        </div> -->
+        <hr>
+        <a href="https://forms.gle/nxzugTk9nnGxtuc16" target="_blank"><button class="button">Please give us some feedback!</button></a>
+        <hr>
+        <a href="index.html"><button class="button">Homepage</button></a>
+    </div>
+    </div>
+  </body>
+    <script type="text/javascript">
+        function check(element) {
+            if (element.classList.contains('correct')){
+                element.className = 'answer correct_clicked';
+                element.innerHTML = element.innerHTML+'<br><br>Correct!';
+
+                if (document.getElementsByClassName('multiple').length == 0){
+                    document.getElementById('hidden_p').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_one').length == 0){
+                    document.getElementById('explanation_one').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_two_one').length == 0){
+                    document.getElementById('explanation_two_one').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_two_two').length == 0){
+                    document.getElementById('explanation_two_two').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_three_one').length == 0){
+                    document.getElementById('explanation_three_one').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_three_two').length == 0){
+                    document.getElementById('explanation_three_two').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_four_one').length == 0){
+                    document.getElementById('explanation_four_one').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_four_two').length == 0){
+                    document.getElementById('explanation_four_two').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_four_three').length == 0){
+                    document.getElementById('explanation_four_three').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_four_four').length == 0){
+                    document.getElementById('explanation_four_four').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_five_one').length == 0){
+                    document.getElementById('explanation_five_one').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_five_two').length == 0){
+                    document.getElementById('explanation_five_two').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_five_three').length == 0){
+                    document.getElementById('explanation_five_three').style.display = "block";
+                }
+
+                if (document.getElementsByClassName('correct_five_four').length == 0){
+                    document.getElementById('explanation_five_four').style.display = "block";
+                }
+            }
+            if (element.classList.contains('wrong')){
+                element.className = 'answer wrong_clicked';
+                element.innerHTML = element.innerHTML+'<br><br>Keep trying...';
+            }
+        }
+    </script>
+</html>

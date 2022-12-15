@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>CS403 - Intro to Robotics</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="utf-8">
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <!-- <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script> -->
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+  </head>
+  <body>
+    <div class="container">
+    <div class="box">
+        <h1>Review (Lectures 1, 3, 5, 7, 9)</h1>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 1.</h2> <p><b><i>[Forward kinematics]</i></b> What is $x$ and $y$?</p> <br>
+        <img src="images_review/q1.png" alt="Image description" style="width:300px;"> <br>
+        <button class="answer wrong" onclick="check(this)">
+            $x = l_1 \cos\theta_1 + l_2 \cos\theta_2$ <br>
+            $y = l_1 \sin\theta_1 + l_2 \sin\theta_2$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $x = l_1 \sin\theta_1 + l_2 \sin\theta_2$ <br>
+            $y = l_1 \cos\theta_1 + l_2 \cos\theta_2$
+        </button>
+        <br>
+        <button class="answer correct" onclick="check(this)">
+            $x = l_1 \cos\theta_1 + l_2 \cos(\theta_1 +\theta_2)$ <br>
+            $y = l_1 \sin\theta_1 + l_2 \sin(\theta_1+\theta_2)$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $x = l_1 \sin\theta_1 + l_2 \sin(\theta_1 +\theta_2)$ <br>
+            $y = l_1 \cos\theta_1 + l_2 \cos(\theta_1+\theta_2)$
+        </button>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 2.</h2> <p><b><i>[Cosine law]</i></b> What is $c^2$?</p> <br>
+        <img src="images_review/q2.png" alt="Image description" style="width:200px;"> <br>
+        <button class="answer wrong" onclick="check(this)">
+            $a^2 + b^2 - 2ab \sin\theta$
+        </button>
+        <button class="answer correct" onclick="check(this)">
+            $a^2 + b^2 - 2ab \cos\theta$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $a^2 + b^2 + 2ab \sin\theta$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $a^2 + b^2 + 2ab \cos\theta$
+        </button>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 3.</h2> <p> <b><i>[Grubler’s Law]</i></b> Select all correct statements:</p> <br>
+        <p> $m (N-1) - \sum_{i=1}^J (m - f_i)$</p><br>
+        <button class="answer wrong" onclick="check(this)">
+            $J$ is the number of links
+        </button>
+        <br>
+        <button class="answer correct multiple" onclick="check(this)">
+            $m$ is the dimension of the configuration space
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $N$ is the number of links excluding the ground link
+        </button>
+        <br>
+        <button class="answer correct multiple" onclick="check(this)">
+            $f_i$ replies to the joint constraints
+        </button>
+        <p id="hidden_p"><b>All correct options were selected!</b></p>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 4.</h2> <p> <b><i>[Jacobian]</i></b> Select the option with all correct pairs:</p> <br>
+        <button class="answer wrong" onclick="check(this)">
+            Joint position → Cartesian position (Forward kinematics) <br>
+            Joint position ← Cartesian position (Inverse kinematics) <br>
+            Joint velocity → Cartesian velocity (Pseudo inverse jacobian) <br>
+            Joint velocity ← Cartesian velocity (Jacobian)
+        </button>
+        <br>
+        <button class="answer correct" onclick="check(this)">
+            Joint position → Cartesian position (Forward kinematics) <br>
+            Joint position ← Cartesian position (Inverse kinematics) <br>
+            Joint velocity → Cartesian velocity (Jacobian) <br>
+            Joint velocity ← Cartesian velocity (Pseudo inverse jacobian)
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            Joint position → Cartesian position (Inverse kinematics) <br>
+            Joint position ← Cartesian position (Forward kinematics) <br>
+            Joint velocity → Cartesian velocity (Pseudo inverse jacobian) <br>
+            Joint velocity ← Cartesian velocity (Jacobian)
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            Joint position → Cartesian position (Inverse kinematics) <br>
+            Joint position ← Cartesian position (Forward kinematics) <br>
+            Joint velocity → Cartesian velocity (Jacobian) <br>
+            Joint velocity ← Cartesian velocity (Pseudo inverse jacobian)
+        </button>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 5.</h2> <p> <b><i>[SO(3)]</i></b> What is the SO(3) for the rotation around the $z$-axis? </p> <br>
+        <button class="answer wrong" onclick="check(this)">
+            $\begin{pmatrix}
+            1 & 0 & 0\\
+            0 & \cos\theta & -\sin\theta \\
+            0 & \sin\theta & \cos\theta
+            \end{pmatrix}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $\begin{pmatrix}
+            1 & 0 & 0\\
+            0 & \cos\theta & \sin\theta \\
+            0 & -\sin\theta & \cos\theta
+            \end{pmatrix}$
+        </button>
+        <br>
+        <button class="answer correct" onclick="check(this)">
+            $\begin{pmatrix}
+            \cos\theta & -\sin\theta & 0 \\
+            \sin\theta & \cos\theta & 0 \\
+            0 & 0 & 1
+            \end{pmatrix}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $\begin{pmatrix}
+            \cos\theta & \sin\theta & 0 \\
+            -\sin\theta & \cos\theta & 0 \\
+            0 & 0 & 1
+            \end{pmatrix}$
+        </button>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 6.</h2> <p> <b><i>[so(3) to SO(3)]</i></b> What is the correct equation to transform so(3) to SO(3)?</p> <br>
+        <button class="answer correct" onclick="check(this)">
+            $e^{[\hat\omega]\theta} = I + \sin\theta[\hat\omega] + (1-\cos\theta)[\hat\omega]^2$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $e^{[\hat\omega]\theta} = I + \sin\theta[\hat\omega] - (1+\cos\theta)[\hat\omega]^2$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $e^{[\hat\omega]\theta} = I - \sin\theta[\hat\omega] + (1-\cos\theta)[\hat\omega]^2$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $e^{[\hat\omega]\theta} = I + \sin\theta[\hat\omega] - (1-\cos\theta)[\hat\omega]^2$
+        </button>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 7.</h2> <p> <b><i>[Quartenion]</i></b> What is the dimension of a quaternion and what is the correct expression?</p> <br>
+        <button class="answer correct" onclick="check(this)">
+            $q \in \mathbb{R}^4,
+            \begin{pmatrix}
+                \cos(\theta/2) \\
+                \hat\omega\sin(\theta/2)
+            \end{pmatrix}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $q \in \mathbb{R}^4,
+            \begin{pmatrix}
+                \sin(\theta/2) \\
+                \hat\omega\cos(\theta/2)
+            \end{pmatrix}$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            $q \in \mathbb{R}^2,
+            \begin{pmatrix}
+                \cos(\theta/2) \\
+                \hat\omega\sin(\theta/2)
+            \end{pmatrix}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $q \in \mathbb{R}^2,
+            \begin{pmatrix}
+                \sin(\theta/2) \\
+                \hat\omega\cos(\theta/2)
+            \end{pmatrix}$
+        </button>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 8.</h2> <p> <b><i>[3D kinematics]</i></b>  Find the forward kinematics of a manipulator using SE(3):</p> <br>
+        <img src="images_review/q8.png" alt="Image description" style="width:350px;"> <br>
+        <button class="answer wrong" onclick="check(this)">
+            ${}_{0}T_3 = {}_{0}T_1 \, {}_{1}T_2 \, {}_{2}T_3 = \\
+            \begin{pmatrix}
+            c\theta_1 & s\theta_1 & 0 & 0 \\
+            -s\theta_1 & c\theta_1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+            1 & 0 & 0 & \theta_2 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & L_1 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+            c\theta_3 & -s\theta_3 & 0 & L_2 \\
+            s\theta_3 & c\theta_3 & 0 & 0\\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            ${}_{0}T_3 = {}_{0}T_1 \, {}_{1}T_2 \, {}_{2}T_3 = \\
+            \begin{pmatrix}
+            c\theta_1 & -s\theta_1 & 0 & 0 \\
+            s\theta_1 & c\theta_1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+            1 & 0 & 0 & \theta_2 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & L_1 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+            c\theta_3 & -s\theta_3 & 0 & L_2 \\
+            s\theta_3 & c\theta_3 & 0 & 0\\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}$
+        </button>
+        <br>
+        <button class="answer correct" onclick="check(this)">
+            ${}_{0}T_3 = {}_{0}T_1 \, {}_{1}T_2 \, {}_{2}T_3 = \\
+            \begin{pmatrix}
+            c\theta_1 & -s\theta_1 & 0 & 0 \\
+            s\theta_1 & c\theta_1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+            1 & 0 & 0 & \theta_2 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & L_1 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+            1 & 0 & 0 & L_2 \\
+            0 & c\theta_3 & -s\theta_3 & 0 \\
+            0 & s\theta_3 & c\theta_3 & 0 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}$
+        </button>
+        <br>
+        <button class="answer wrong" onclick="check(this)">
+            ${}_{0}T_3 = {}_{0}T_1 \, {}_{1}T_2 \, {}_{2}T_3 = \\
+            \begin{pmatrix}
+            c\theta_1 & s\theta_1 & 0 & 0 \\
+            -s\theta_1 & c\theta_1 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+            1 & 0 & 0 & \theta_2 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 1 & L_1 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}
+            \begin{pmatrix}
+            1 & 0 & 0 & L_2 \\
+            0 & c\theta_3 & s\theta_3 & 0 \\
+            0 & -s\theta_3 & c\theta_3 & 0 \\
+            0 & 0 & 0 & 1
+            \end{pmatrix}$
+        </button>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 9.</h2> <p> <b><i>[Velocity]</i></b> What is the velocity of the point?</p> <br>
+        <img src="images_review/q9.png" alt="Image description" style="width:350px;"> <br>
+        <button class="answer wrong" onclick="check(this)">
+            $\begin{pmatrix}
+            v \\
+            \omega l
+            \end{pmatrix}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $\begin{pmatrix}
+            \omega \\
+            \omega + vl
+            \end{pmatrix}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $\begin{pmatrix}
+            v \\
+            \omega + vl
+            \end{pmatrix}$
+        </button>
+        <button class="answer correct" onclick="check(this)">
+            $\begin{pmatrix}
+            v \\
+            v + \omega l
+            \end{pmatrix}$
+        </button>
+        <hr>
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <h2>Question 10.</h2> <p> <b><i>[Generalized velocity]</i></b> What is the 6D velocity caused by $s_1$ and $s_2$? (Given $s_i$)</p> <br>
+        <img src="images_review/q10.png" alt="Image description" style="width:350px;"> <br>
+        <button class="answer wrong" onclick="check(this)">
+            $\begin{pmatrix}
+                {}_{3}R_{1}\omega_1 \\
+                {}_{3}R_{1}\omega_1\times p_{1\rightarrow 3} + {}_{3}R_{1} v_1
+            \end{pmatrix} \\
+            \begin{pmatrix}
+                {}_{3}R _{2}\omega_1 \\
+                {}_{3}R _{2}\omega_1\times p_{2\rightarrow 3} + {}_{3}R _{2} v_2
+            \end{pmatrix}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $\begin{pmatrix}
+                {}_{3}R _{1}\omega_1 \\
+                {}_{3}R _{1}\omega_1\times p_{1\rightarrow 3} + {}_{3}R _{1} v_1
+            \end{pmatrix} \\
+            \begin{pmatrix}
+                {}_{3}R _{2}\omega_2 \\
+                {}_{3}R _{2}\omega_1\times p_{2\rightarrow 3} + {}_{3}R _{2} v_2
+            \end{pmatrix}$
+        </button>
+        <br>
+        <button class="answer correct" onclick="check(this)">
+            $\begin{pmatrix}
+                {}_{3}R _{1}\omega_1 \\
+                {}_{3}R _{1}\omega_1\times p_{1\rightarrow 3} + {}_{3}R _{1} v_1
+            \end{pmatrix} \\
+            \begin{pmatrix}
+                {}_{3}R _{2}\omega_2 \\
+                {}_{3}R _{2}\omega_2\times p_{2\rightarrow 3} + {}_{3}R _{2} v_2
+            \end{pmatrix}$
+        </button>
+        <button class="answer wrong" onclick="check(this)">
+            $\begin{pmatrix}
+                {}_{3}R _{1}\omega_1 \\
+                {}_{3}R _{1}\omega_1\times p_{1\rightarrow 3} + {}_{3}R _{1} v_1
+            \end{pmatrix} \\
+            \begin{pmatrix}
+                {}_{3}R _{2}\omega_1 \\
+                {}_{3}R _{2}\omega_1\times p_{2\rightarrow 3} + {}_{3}R _{2} v_1
+            \end{pmatrix}$
+        </button>
+        <hr>
+        <a href="https://forms.gle/U6sk6AkRDPVofznW6" target="_blank"><button class="button">Please give us some feedback!</button></a>
+        <hr>
+        <a href="index.html"><button class="button">Homepage</button></a>
+    </div>
+    </div>
+  </body>
+    <script type="text/javascript">
+        function check(element) {
+            if (element.classList.contains('correct')){
+                element.className = 'answer correct_clicked';
+                element.innerHTML = element.innerHTML+'<br><br>Correct!';
+
+                if (document.getElementsByClassName('multiple').length == 0){
+                    document.getElementById('hidden_p').style.display = "block";
+                }
+            }
+            if (element.classList.contains('wrong')){
+                element.className = 'answer wrong_clicked';
+                element.innerHTML = element.innerHTML+'<br><br>Keep trying...';
+            }
+        }
+    </script>
+</html>
